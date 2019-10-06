@@ -1,0 +1,30 @@
+{
+    "name": "nadialabs/nadia-form-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "require": {
+        "php": "^5.5|^7.0",
+        "ext-json": "*",
+        "symfony/config": "^3.4|^4.0",
+        "symfony/dependency-injection": "^3.4|^4.0",
+        "symfony/form": "^3.4|^4.0",
+        "symfony/http-foundation": "^3.4|^4.0",
+        "symfony/http-kernel": "^3.4|^4.0",
+        "symfony/options-resolver": "^3.4|^4.0"
+    },
+    "require-dev": {
+        "doctrine/annotations": "^1.8",
+        "symfony/framework-bundle": "^3.4|^4.0",
+        "symfony/phpunit-bridge": "^3.4|^4.0",
+        "symfony/templating": "^3.4|^4.0",
+        "symfony/twig-bridge": "^3.4|^4.0",
+        "symfony/twig-bundle": "^3.4|^4.0",
+        "symfony/validator": "^4.3",
+        "symfony/yaml": "^3.4|^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nadia\\Bundle\\NadiaFormBundle\\": ""
+        }
+    }
+}
