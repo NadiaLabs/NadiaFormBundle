@@ -1,0 +1,7 @@
+{% block bootstrap4_toggle_widget -%}
+    <input type="checkbox" data-toggle="toggle" id="{{ id }}" name="{{ full_name }}"
+        {%- if disabled %} disabled="disabled"{% endif -%}
+        {{ block('attributes') }}
+        {% if value is defined %} value="{{ value }}"{% endif %}
+        {% if checked %} checked="checked"{% endif %} />
+{%- endblock bootstrap4_toggle_widget %}

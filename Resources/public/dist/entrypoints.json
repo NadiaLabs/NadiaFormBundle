@@ -1,0 +1,17 @@
+{
+  "entrypoints": {
+    "form/dynamic-choice-type": {
+      "js": [
+        "/dist/form/dynamic-choice-type.js"
+      ]
+    },
+    "form/image-file-type": {
+      "css": [
+        "/dist/form/image-file-type.css"
+      ],
+      "js": [
+        "/dist/form/image-file-type.js"
+      ]
+    }
+  }
+}

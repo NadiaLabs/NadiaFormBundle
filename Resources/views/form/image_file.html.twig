@@ -1,0 +1,29 @@
+{% block image_file_widget -%}
+    <div class="nadia-image-file-type">
+        <a href="#" class="upload-button"{% if image_src is not empty %} style="display: none;"{% endif %}>
+            {{- translation_domain is same as(false) ? upload_button_text : upload_button_text|trans({}, translation_domain) -}}
+        </a>
+        <div class="image-container"{% if image_src is empty %} style="display: none;"{% endif %}>
+            <a href="{{ image_url_prefix ~ image_src }}" target="_blank">
+                <img src="{{- image_url_prefix ~ image_src -}}"
+                     alt="{{- translation_domain is same as(false) ? image_alt_text : image_alt_text|trans({}, translation_domain) -}}"
+                     {% with { attr: image_attributes } %}{{ block('attributes') }}{% endwith %} />
+            </a>
+
+            <div class="button-container">
+                <a href="#" class="replace-button">
+                    {{- translation_domain is same as(false) ? replace_button_text : replace_button_text|trans({}, translation_domain) -}}
+                </a>
+
+                <a href="#" class="delete-button">
+                    {{- translation_domain is same as(false) ? delete_button_text : delete_button_text|trans({}, translation_domain) -}}
+                </a>
+            </div>
+        </div>
+
+        <div style="display: none;">
+            {{ form_widget(form.file) }}
+            {{ form_widget(form.uri) }}
+        </div>
+    </div>
+{%- endblock image_file_widget %}

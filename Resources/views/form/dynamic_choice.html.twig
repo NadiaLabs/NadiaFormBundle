@@ -1,0 +1,27 @@
+{% block dynamic_choice_widget -%}
+    <div {{ block('widget_attributes') }}>
+        {{ form_widget(form.list) }}
+        {{ form_widget(form.value) }}
+    </div>
+    {% if build_ajax_uri_callback is not empty %}
+    <script type="text/javascript">
+        if (undefined === window['{{- build_ajax_uri_callback_name -}}']) {
+            window['{{- build_ajax_uri_callback_name -}}'] = {{- build_ajax_uri_callback|raw -}};
+        }
+    </script>
+    {% endif %}
+    {% if build_ajax_data_callback is not empty %}
+        <script type="text/javascript">
+            if (undefined === window['{{- build_ajax_data_callback_name -}}']) {
+                window['{{- build_ajax_data_callback_name -}}'] = {{- build_ajax_data_callback|raw -}};
+            }
+        </script>
+    {% endif %}
+    {% if render_html_callback is not empty %}
+    <script type="text/javascript">
+        if (undefined === window['{{- render_html_callback_name -}}']) {
+            window['{{- render_html_callback_name -}}'] = {{- render_html_callback|raw -}};
+        }
+    </script>
+    {% endif %}
+{%- endblock dynamic_choice_widget %}
