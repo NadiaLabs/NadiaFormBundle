@@ -25,3 +25,9 @@ public function registerBundles()
     ];
 }
 ```
+
+## Form Types
+
+- [DynamicChoiceType](./Resources/doc/dynamic-choice-type.md)
+- ToggleType (for Bootstrap4)
+- ImageFileType
