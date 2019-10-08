@@ -62,8 +62,8 @@
                 let uri = global[buildAjaxUriCallbackName].call(that, $, ajaxUri);
                 let data = global[buildAjaxDataCallbackName].call(that, $);
                 let method = $node.data('ajax-method');
-                let extraParameters = $node.data('ajax-extra-parameters');
-                let parameters = $.extend(extraParameters, {
+                let extraSettings = $node.data('ajax-extra-settings');
+                let settings = $.extend(extraSettings, {
                     url: uri,
                     method: method,
                     data: data,
@@ -72,7 +72,7 @@
                     }
                 });
 
-                $.ajax(parameters);
+                $.ajax(settings);
             }
         });
     });

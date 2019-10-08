@@ -52,7 +52,7 @@ class DynamicChoiceType extends AbstractType
             'error_bubbling' => false,
             'ajax_uri' => '',
             'ajax_method' => 'GET',
-            'ajax_extra_parameters' => new \stdClass(),
+            'ajax_extra_settings' => new \stdClass(),
             'target' => '',
             'build_ajax_uri_callback_name' => '',
             'build_ajax_uri_callback' => '',
@@ -80,7 +80,7 @@ class DynamicChoiceType extends AbstractType
 
         $resolver->addAllowedTypes('choice_constraints', ['null', 'array']);
         $resolver->addAllowedTypes('ajax_uri', 'string');
-        $resolver->addAllowedTypes('ajax_extra_parameters', 'stdClass');
+        $resolver->addAllowedTypes('ajax_extra_settings', 'stdClass');
         $resolver->addAllowedTypes('target', 'string');
         $resolver->addAllowedTypes('build_ajax_uri_callback_name', 'string');
         $resolver->addAllowedTypes('build_ajax_uri_callback', 'string');
@@ -142,7 +142,7 @@ class DynamicChoiceType extends AbstractType
             'data-form-type' => 'dynamic-choice',
             'data-ajax-uri' => $options['ajax_uri'],
             'data-ajax-method' => $options['ajax_method'],
-            'data-ajax-extra-parameters' => json_encode($options['ajax_extra_parameters']),
+            'data-ajax-extra-settings' => json_encode($options['ajax_extra_settings']),
             'data-target' => $options['target'],
             'data-build-ajax-uri-callback-name' => $view->vars['build_ajax_uri_callback_name'],
             'data-build-ajax-data-callback-name' => $view->vars['build_ajax_data_callback_name'],
