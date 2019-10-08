@@ -30,7 +30,7 @@ twig:
 - `build_ajax_uri_callback`: A javascript function that returns AJAX request uri. (default value is empty string `''`)  
   **You need to register the function as global** (register to `window` object).  
   The function interface: `function ($, ajaxUri) {}`, it takes two parameters `$` is a jQuery object, and `ajaxUri` is an uri that comes from `ajax_uri` option.  
-  The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](./Resources/views/form/dynamic_choice.html.twig)).  
+  The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](../views/form/dynamic_choice.html.twig)).  
   Take default function as example:  
   ```js
   window['__default__DynamicChoiceBuildAjaxUriCallback'] = function ($, ajaxUri) {
@@ -42,7 +42,7 @@ twig:
 - `build_ajax_data_callback`: A javascript function that returns AJAX request data. (default value is empty string `''`)  
   **You need to register the function as global** (register to `window` object).  
   The function interface: `function ($) {}`, it takes only one parameter, `$` is a jQuery object.  
-  The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](./Resources/views/form/dynamic_choice.html.twig)).  
+  The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](../views/form/dynamic_choice.html.twig)).  
   Take default function as example:  
   ```js
   window['__default__DynamicChoiceBuildAjaxDataCallback'] = function ($) {
@@ -64,7 +64,7 @@ twig:
 - `render_html_callback`: A javascript function that updates the target select element. (default value is empty string `''`)  
   **You need to register the function as global** (register to `window` object).  
   The function interface: `function ($, ajaxResponse) {}`, it takes only two parameters, `$` is a jQuery object, and `ajaxResponse` is the response string/object from AJAX request.  
-  The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](./Resources/views/form/dynamic_choice.html.twig)).  
+  The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](../views/form/dynamic_choice.html.twig)).  
   Take default function as example:  
   ```js
   window['__default__DynamicChoiceRenderHtmlCallback'] = function ($, ajaxResponse) {
