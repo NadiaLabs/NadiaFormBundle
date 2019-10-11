@@ -54,12 +54,9 @@ class DynamicChoiceType extends AbstractType
             'ajax_method' => 'GET',
             'ajax_extra_settings' => new \stdClass(),
             'target' => '',
-            'build_ajax_uri_callback_name' => '',
             'build_ajax_uri_callback' => '',
-            'build_ajax_data_callback_name' => '',
             'build_ajax_data_callback' => '',
             'default_ajax_data_key' => 'q',
-            'render_html_callback_name' => '',
             'render_html_callback' => '',
 
             // For ChoiceType
@@ -82,23 +79,11 @@ class DynamicChoiceType extends AbstractType
         $resolver->addAllowedTypes('ajax_uri', 'string');
         $resolver->addAllowedTypes('ajax_extra_settings', 'stdClass');
         $resolver->addAllowedTypes('target', 'string');
-        $resolver->addAllowedTypes('build_ajax_uri_callback_name', 'string');
         $resolver->addAllowedTypes('build_ajax_uri_callback', 'string');
-        $resolver->addAllowedTypes('build_ajax_data_callback_name', 'string');
         $resolver->addAllowedTypes('build_ajax_data_callback', 'string');
         $resolver->addAllowedTypes('default_ajax_data_key', 'string');
-        $resolver->addAllowedTypes('render_html_callback_name', 'string');
         $resolver->addAllowedTypes('render_html_callback', 'string');
 
-        $resolver->addAllowedValues('build_ajax_uri_callback_name', function ($value) {
-            return false === strpos($value, '.');
-        });
-        $resolver->addAllowedValues('build_ajax_data_callback_name', function ($value) {
-            return false === strpos($value, '.');
-        });
-        $resolver->addAllowedValues('render_html_callback_name', function ($value) {
-            return false === strpos($value, '.');
-        });
         $resolver->addAllowedValues('ajax_method', ['GET', 'POST']);
     }
 
@@ -114,25 +99,19 @@ class DynamicChoiceType extends AbstractType
         $view->vars['render_html_callback_name'] = '__default__DynamicChoiceRenderHtmlCallback';
         $view->vars['render_html_callback'] = '';
 
-        if (!empty($options['build_ajax_uri_callback_name'])) {
-            $view->vars['build_ajax_uri_callback_name'] = $options['build_ajax_uri_callback_name'];
-        } elseif (!empty($options['build_ajax_uri_callback'])) {
+        if (!empty($options['build_ajax_uri_callback'])) {
             $view->vars['build_ajax_uri_callback'] = $options['build_ajax_uri_callback'];
             $view->vars['build_ajax_uri_callback_name'] =
                 '__'.$this->getCallbackNameById($view->vars['id']).'_DynamicChoiceBuildAjaxUriCallback';
         }
 
-        if (!empty($options['build_ajax_data_callback_name'])) {
-            $view->vars['build_ajax_data_callback_name'] = $options['build_ajax_data_callback_name'];
-        } elseif (!empty($options['build_ajax_data_callback'])) {
+        if (!empty($options['build_ajax_data_callback'])) {
             $view->vars['build_ajax_data_callback'] = $options['build_ajax_data_callback'];
             $view->vars['build_ajax_data_callback_name'] =
                 '__'.$this->getCallbackNameById($view->vars['id']).'_DynamicChoiceBuildAjaxDataCallback';
         }
 
-        if (!empty($options['render_html_callback_name'])) {
-            $view->vars['render_html_callback_name'] = $options['render_html_callback_name'];
-        } elseif (!empty($options['render_html_callback'])) {
+        if (!empty($options['render_html_callback'])) {
             $view->vars['render_html_callback'] = $options['render_html_callback'];
             $view->vars['render_html_callback_name'] =
                 '__'.$this->getCallbackNameById($view->vars['id']).'_DynamicChoiceRenderHtmlCallback';

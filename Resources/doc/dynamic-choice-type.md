@@ -25,27 +25,23 @@ twig:
 - `ajax_method`: The AJAX request method, `GET` or `POST`. (default value is `GET`)
 - `ajax_extra_settings`: The extra AJAX request settings. (default value is `new \stdClass()`)  
   **DynamicChoiceType** generates `url`, `method`, `data`, and `success` settings by default, you can overwrite them or add other settings with `ajax_extra_settings` option. Read more at [jQuery.ajax](https://api.jquery.com/jquery.ajax/).
-- `build_ajax_uri_callback_name`: A javascript function name. (default value is empty string `''`)  
-  The function returns AJAX request uri. (see `build_ajax_uri_callback`)
 - `build_ajax_uri_callback`: A javascript function that returns AJAX request uri. (default value is empty string `''`)  
   **You need to register the function as global** (register to `window` object).  
   The function interface: `function ($, ajaxUri) {}`, it takes two parameters `$` is a jQuery object, and `ajaxUri` is an uri that comes from `ajax_uri` option.  
   The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](../views/form/dynamic_choice.html.twig)).  
   Take default function as example:  
   ```js
-  window['__default__DynamicChoiceBuildAjaxUriCallback'] = function ($, ajaxUri) {
+  function defaultCallback($, ajaxUri) {
       return ajaxUri;
-  };
+  }
   ```
-- `build_ajax_data_callback_name`: A javascript function name. (default value is empty string `''`)  
-  The function returns AJAX request data. (see `build_ajax_data_callback`)
 - `build_ajax_data_callback`: A javascript function that returns AJAX request data. (default value is empty string `''`)  
   **You need to register the function as global** (register to `window` object).  
   The function interface: `function ($) {}`, it takes only one parameter, `$` is a jQuery object.  
   The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](../views/form/dynamic_choice.html.twig)).  
   Take default function as example:  
   ```js
-  window['__default__DynamicChoiceBuildAjaxDataCallback'] = function ($) {
+  function defaultCallback($) {
       let $node = $(this);
       let key = $node.data('default-ajax-data-key');
       let data = {};
@@ -53,21 +49,19 @@ twig:
       data[key] = $node.find('input[type="hidden"]').val();
 
       return data;
-  };
+  }
   ```
 - `default_ajax_data_key`: A default query parameter name for the AJAX request uri. (default value is `q`)  
   `build_ajax_data_callback` will fetch the parameter values.  
   If you have over two parameters, this option will be ignored, and you need write your own `build_ajax_data_callback`.  
   For example, if the AJAX request is `/article/list?q=category_php`. Set `q` as `default_ajax_data_key` option, and set `/article/list` as `ajax_uri`.
-- `render_html_callback_name`: A javascript function name. (default value is empty string `''`)  
-  The function updates the target select element. (see `render_html_callback`)
 - `render_html_callback`: A javascript function that updates the target select element. (default value is empty string `''`)  
   **You need to register the function as global** (register to `window` object).  
   The function interface: `function ($, ajaxResponse) {}`, it takes only two parameters, `$` is a jQuery object, and `ajaxResponse` is the response string/object from AJAX request.  
   The `this` in the function is the DOM element that contains whole DynamicChoiceType widget (see [`Resources/views/form/dynamic_choice.html.twig`](../views/form/dynamic_choice.html.twig)).  
   Take default function as example:  
   ```js
-  window['__default__DynamicChoiceRenderHtmlCallback'] = function ($, ajaxResponse) {
+  function defaultCallback($, ajaxResponse) {
       let $node = $(this);
       let $target = $($node.data('target'));
       let $html = $('<div>'+ajaxResponse+'</div>');
@@ -143,7 +137,7 @@ class DynamicChoiceController extends Controller
                 'ajax_uri' => $this->generateUrl('demo-dynamic-choice-ajax2'),
                 'target' => '#form_choice3_list',
                 'build_ajax_data_callback' => "
-                    function ($) {
+                    function myCallback ($) {
                         return {
                             var1: $('#form_choice_value').val(),
                             var2: $('#form_choice2_value').val()
