@@ -13,6 +13,26 @@ twig:
         - '@NadiaForm/Form/dynamic_choice.html.twig'
 ```
 
+### Add Javascript file to your Twig template
+
+The Javascript file for DynamicChoiceType is locate in `Resources/assets/js/form/dynamic-choice-type.js`.  
+You can choose one of the methods below to import this Javascript file
+
+#### Method#1 Using Encore or Webpack
+
+```js
+// Add this line to your Javascript file
+// you can change "/path/to/your/vendor/nadialabs/nadia-form-bundle" for your need
+import '/path/to/your/vendor/nadialabs/nadia-form-bundle/Resources/assets/js/form/dynamic-choice-type.js';
+```
+
+#### Method#2 Using `<script>` tag
+
+```twig
+{# Add this line to your Twig template file, you can change asset file path for your need #}
+<script type="text/javascript" src="{{ asset('bundles/nadiaform/dist/dynamic-choice-type.js') }}"></script>
+```
+
 ### Field Options
 
 ##### Optional options
