@@ -12,6 +12,7 @@ namespace Nadia\Bundle\NadiaFormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,14 +33,7 @@ class DynamicChoiceType extends AbstractType
         $builder->add('list', ChoiceType::class, $this->composeChoiceTypeOptions($options));
         $builder->add('value', HiddenType::class, ['required' => false, 'error_bubbling' => true]);
 
-        $builder->addModelTransformer(new CallbackTransformer(
-            function ($value) {
-                return ['list' => null, 'value' => $value];
-            },
-            function ($array) {
-                return empty($array['value']) ? null : $array['value'];
-            }
-        ));
+        $builder->addModelTransformer($this->getModelTransformer($options));
     }
 
     /**
@@ -165,6 +159,23 @@ class DynamicChoiceType extends AbstractType
         }
 
         return $return;
+    }
+
+    /**
+     * @param array $options Form options
+     *
+     * @return DataTransformerInterface
+     */
+    protected function getModelTransformer(array $options = [])
+    {
+        return new CallbackTransformer(
+            function ($value) {
+                return ['list' => null, 'value' => $value];
+            },
+            function ($array) {
+                return empty($array['value']) ? null : $array['value'];
+            }
+        );
     }
 
     /**
