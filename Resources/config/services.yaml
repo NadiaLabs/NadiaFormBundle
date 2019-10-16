@@ -1,0 +1,9 @@
+parameters:
+
+services:
+    Nadia\Bundle\NadiaFormBundle\Form\Type\DynamicEntityType:
+        class: Nadia\Bundle\NadiaFormBundle\Form\Type\DynamicEntityType
+        arguments:
+            - '@doctrine'
+        tags:
+            - { name: form.type, alias: dynamic_entity }
