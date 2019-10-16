@@ -16,6 +16,8 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,6 +36,17 @@ class DynamicChoiceType extends AbstractType
         $builder->add('value', HiddenType::class, ['required' => false, 'error_bubbling' => true]);
 
         $builder->addModelTransformer($this->getModelTransformer($options));
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $data = $event->getData();
+            $choices = $event->getForm()->getConfig()->getOption('choices');
+
+            if (empty($choices)) {
+                $data['list'] = null;
+
+                $event->setData($data);
+            }
+        }, 256);
     }
 
     /**
