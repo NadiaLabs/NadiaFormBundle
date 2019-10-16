@@ -15,32 +15,44 @@
         return data;
     };
 
-    global['__default__DynamicChoiceRenderHtmlCallback'] = function ($, ajaxResponse) {
-        let $node = $(this);
-        let $target = $($node.data('target'));
+    global['__default__DynamicChoiceRenderHtmlCallback'] = function ($target, ajaxResponse, $) {
+        let $targetList = $target.find('select:first');
+        let $targetValue = $target.find('input[type="hidden"]');
+        let targetValue = $targetValue.val();console.log(targetValue);
+        let hasSelectedValue = false;
         let $html = $('<div>'+ajaxResponse+'</div>');
-        let $select = $html.find('select:first');
+        let $newList = $html.find('select:first');
         let $options;
 
-        if ($select.length) {
-            $options = $select.find('option');
+        if ($newList.length) {
+            $options = $newList.find('option');
         } else {
             $options = $html.find('option');
         }
 
-        $target.empty();
+        $targetList.empty();
 
         $options.each(function (i, option) {
-            $target.append(option);
+            let $option = $(option);
+
+            if ($option.val() === targetValue) {
+                hasSelectedValue = true;
+            }
+
+            $targetList.append($option);
         });
 
-        $target.find('option:first').prop('selected', true);
+        if (hasSelectedValue) {
+            $targetList.val(targetValue);
+        } else {
+            $targetList.find('option:first').prop('selected', true);
+        }
     };
 
     $('div[data-form-type="dynamic-choice"]').each(function () {
         let that = this;
         let $node = $(that);
-        let $list = $node.find('select');
+        let $list = $node.find('select:first');
         let $value = $node.find('input[type="hidden"]');
         let ajaxUri = $node.data('ajax-uri');
         let $target = $($node.data('target'));
@@ -48,32 +60,46 @@
         let buildAjaxDataCallbackName = $node.data('build-ajax-data-callback-name');
         let renderHtmlCallbackName = $node.data('render-html-callback-name');
 
+        if ($target.length) {
+            if (undefined === global[buildAjaxUriCallbackName]) {
+                throw new Error('Cannot get AJAX parameters! Callback "' + buildAjaxUriCallbackName + '" is not exists!');
+            }
+            if (undefined === global[renderHtmlCallbackName]) {
+                throw new Error('Cannot update select html! Callback "' + renderHtmlCallbackName + '" is not exists!');
+            }
+        }
+
+        function ajax()
+        {
+            if ($target.length) {
+                $.ajax($.extend(
+                    $node.data('ajax-extra-settings'),
+                    {
+                        url: global[buildAjaxUriCallbackName].call(that, $, ajaxUri),
+                        method: $node.data('ajax-method'),
+                        data: global[buildAjaxDataCallbackName].call(that, $),
+                        success: function (response) {
+                            global[renderHtmlCallbackName].call(that, $target, response, $);
+                        }
+                    }
+                ));
+            }
+        }
+
         $list.on('change', function () {
             $value.val($list.val());
 
-            if ($target.length) {
-                if (undefined === global[buildAjaxUriCallbackName]) {
-                    throw new Error('Cannot get AJAX parameters! Callback "'+buildAjaxUriCallbackName+'" is not exists!');
-                }
-                if (undefined === global[renderHtmlCallbackName]) {
-                    throw new Error('Cannot update select html! Callback "'+renderHtmlCallbackName+'" is not exists!');
-                }
-
-                let uri = global[buildAjaxUriCallbackName].call(that, $, ajaxUri);
-                let data = global[buildAjaxDataCallbackName].call(that, $);
-                let method = $node.data('ajax-method');
-                let extraSettings = $node.data('ajax-extra-settings');
-                let settings = $.extend(extraSettings, {
-                    url: uri,
-                    method: method,
-                    data: data,
-                    success: function (response) {
-                        global[renderHtmlCallbackName].call(that, $, response);
-                    }
-                });
-
-                $.ajax(settings);
-            }
+            ajax();
         });
+
+        if ($node.data('auto-call-ajax-onload')) {
+            if ($target.length) {
+                let $value = $target.find('input[type="hidden"]');
+
+                if ('' !== $value.val()) {
+                    ajax();
+                }
+            }
+        }
     });
 })(jQuery, window);

@@ -65,6 +65,7 @@ class DynamicChoiceType extends AbstractType
             'build_ajax_data_callback' => '',
             'default_ajax_data_key' => 'q',
             'render_html_callback' => '',
+            'auto_call_ajax_onload' => true,
 
             // For ChoiceType
             'choice_constraints' => null,
@@ -90,6 +91,7 @@ class DynamicChoiceType extends AbstractType
         $resolver->addAllowedTypes('build_ajax_data_callback', 'string');
         $resolver->addAllowedTypes('default_ajax_data_key', 'string');
         $resolver->addAllowedTypes('render_html_callback', 'string');
+        $resolver->addAllowedTypes('auto_call_ajax_onload', 'bool');
 
         $resolver->addAllowedValues('ajax_method', ['GET', 'POST']);
     }
@@ -134,6 +136,7 @@ class DynamicChoiceType extends AbstractType
             'data-build-ajax-data-callback-name' => $view->vars['build_ajax_data_callback_name'],
             'data-default-ajax-data-key' => $options['default_ajax_data_key'],
             'data-render-html-callback-name' => $view->vars['render_html_callback_name'],
+            'data-auto-call-ajax-onload' => $options['auto_call_ajax_onload'] ? 1 : 0,
         ]);
     }
 
