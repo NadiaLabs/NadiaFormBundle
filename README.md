@@ -29,5 +29,6 @@ public function registerBundles()
 ## Form Types
 
 - [DynamicChoiceType](./Resources/doc/dynamic-choice-type.md)
+- [DynamicEntityType](./Resources/doc/dynamic-entity-type.md)
 - ToggleType (for Bootstrap4)
 - ImageFileType
