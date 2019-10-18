@@ -80,7 +80,7 @@ class DynamicEntityType extends DynamicChoiceType
             function ($entity) use ($options) {
                 $id = $entity instanceof $options['class'] ? $entity->getId() : null;
 
-                return ['list' => null, 'value' => $id];
+                return ['list' => $id, 'value' => $id];
             },
             function ($array) use ($options) {
                 $id = $array['value'];

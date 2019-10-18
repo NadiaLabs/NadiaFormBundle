@@ -94,9 +94,9 @@
 
         if ($node.data('auto-call-ajax-onload')) {
             if ($target.length) {
-                let $value = $target.find('input[type="hidden"]');
+                let $targetValue = $target.find('input[type="hidden"]');
 
-                if ('' !== $value.val()) {
+                if (($targetValue.length && '' !== $targetValue.val()) || '' !== $value.val()) {
                     ajax();
                 }
             }

@@ -186,7 +186,7 @@ class DynamicChoiceType extends AbstractType
     {
         return new CallbackTransformer(
             function ($value) {
-                return ['list' => null, 'value' => $value];
+                return ['list' => $value, 'value' => $value];
             },
             function ($array) {
                 return empty($array['value']) ? null : $array['value'];
