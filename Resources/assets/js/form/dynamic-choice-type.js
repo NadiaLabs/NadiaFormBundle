@@ -47,6 +47,8 @@
         } else {
             $targetList.find('option:first').prop('selected', true);
         }
+
+        $targetList.trigger('change');
     };
 
     $('div[data-form-type="dynamic-choice"]').each(function () {
