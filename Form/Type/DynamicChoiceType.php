@@ -156,7 +156,7 @@ class DynamicChoiceType extends AbstractType
     private function composeChoiceTypeOptions(array $options)
     {
         $return = [
-            'required' => false,
+            'required' => $options['required'],
             'error_bubbling' => true,
         ];
         $keys = [
