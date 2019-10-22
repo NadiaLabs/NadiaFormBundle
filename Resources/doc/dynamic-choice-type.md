@@ -97,7 +97,7 @@ import '/path/to/your/vendor/nadialabs/nadia-form-bundle/Resources/assets/js/for
   function defaultCallback($target, ajaxResponse, $) {
       let $targetList = $target.find('select:first');
       let $targetValue = $target.find('input[type="hidden"]');
-      let targetValue = $targetValue.val();console.log(targetValue);
+      let targetValue = $targetValue.val();
       let hasSelectedValue = false;
       let $html = $('<div>'+ajaxResponse+'</div>');
       let $newList = $html.find('select:first');
@@ -126,6 +126,8 @@ import '/path/to/your/vendor/nadialabs/nadia-form-bundle/Resources/assets/js/for
       } else {
           $targetList.find('option:first').prop('selected', true);
       }
+
+      $targetList.trigger('change');
   }
   ```
 
