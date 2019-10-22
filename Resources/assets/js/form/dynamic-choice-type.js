@@ -18,7 +18,7 @@
     global['__default__DynamicChoiceRenderHtmlCallback'] = function ($target, ajaxResponse, $) {
         let $targetList = $target.find('select:first');
         let $targetValue = $target.find('input[type="hidden"]');
-        let targetValue = $targetValue.val();console.log(targetValue);
+        let targetValue = $targetValue.val();
         let hasSelectedValue = false;
         let $html = $('<div>'+ajaxResponse+'</div>');
         let $newList = $html.find('select:first');
