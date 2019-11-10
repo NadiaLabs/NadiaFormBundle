@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Nadia\Bundle\NadiaFormBundle\Form\Type;
+namespace Nadia\Bundle\NadiaFormBundle\Form\Type\Bootstrap4;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -18,7 +18,9 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class Bootstrap4ToggleType
+ * Class ToggleType
+ *
+ * A FormType for supporting Bootstrap 4 Toggle
  *
  * @see https://gitbrent.github.io/bootstrap4-toggle/
  */
