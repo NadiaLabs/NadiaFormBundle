@@ -83,13 +83,16 @@ class DynamicEntityType extends DynamicChoiceType
                 return ['list' => $id, 'value' => $id];
             },
             function ($array) use ($options) {
+                if (empty($array['value'])) {
+                    return null;
+                }
+
                 $id = $array['value'];
                 /** @var ObjectManager $em */
                 $em = $options['em'];
                 $repo = $em->getRepository($options['class']);
-                $entity = $repo->find($id);
 
-                return empty($array['value']) ? null : $entity;
+                return $repo->find($id);
             }
         );
     }
