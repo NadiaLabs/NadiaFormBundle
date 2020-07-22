@@ -17,9 +17,6 @@
 
     global['__default__DynamicChoiceRenderHtmlCallback'] = function ($target, ajaxResponse, $) {
         let $targetList = $target.find('select:first');
-        let $targetValue = $target.find('input[type="hidden"]');
-        let targetValue = $targetValue.val();
-        let hasSelectedValue = false;
         let $html = $('<div>'+ajaxResponse+'</div>');
         let $newList = $html.find('select:first');
         let $options;
@@ -33,22 +30,10 @@
         $targetList.empty();
 
         $options.each(function (i, option) {
-            let $option = $(option);
-
-            if ($option.val() === targetValue) {
-                hasSelectedValue = true;
-            }
-
-            $targetList.append($option);
+            $targetList.append(option);
         });
 
-        if (hasSelectedValue) {
-            $targetList.val(targetValue);
-        } else {
-            $targetList.find('option:first').prop('selected', true);
-        }
-
-        $targetList.trigger('change');
+        $targetList.trigger('initialize-selected-value');
     };
 
     $('div[data-form-type="dynamic-choice"]').each(function () {
@@ -92,6 +77,25 @@
             $value.val($list.val());
 
             ajax();
+        });
+
+        $list.on('initialize-selected-value', function () {
+            let hasSelectedValue = false;
+            let value = $value.val();
+
+            $list.find('option').each(function (i, option) {
+                if ($(option).val() === value) {
+                    hasSelectedValue = true;
+                }
+            });
+
+            if (hasSelectedValue) {
+                $list.val(value);
+            } else {
+                $list.find('option:first').prop('selected', true);
+            }
+
+            $list.trigger('change');
         });
 
         if ($node.data('auto-call-ajax-onload')) {
