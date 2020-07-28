@@ -12,5 +12,6 @@ services:
         class: Nadia\Bundle\NadiaFormBundle\Form\Type\Select2\Select2EntityType
         arguments:
             - '@doctrine'
+            - '@router'
         tags:
             - { name: form.type, alias: select2_entity }
