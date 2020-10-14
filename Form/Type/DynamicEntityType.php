@@ -10,8 +10,8 @@
 
 namespace Nadia\Bundle\NadiaFormBundle\Form\Type;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\RuntimeException;
 use Symfony\Component\OptionsResolver\Options;
